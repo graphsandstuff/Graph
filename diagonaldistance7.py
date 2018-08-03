@@ -86,7 +86,29 @@ def dd(G):
                         if k not in rr(k,i,j,l,y) and l not in rr(l,k,i,j,y):
                             if coladd(coladd(coladd(X[i],X[j]),X[k]),X[l])==z:
                                 return ['4',i,j,k,l]
-    return "greater than 4"
+    for i in range(len(X)):
+        for j in range(len(X)):
+            for k in range(len(X)):
+                for l in range(len(X)):
+                    for w in range(len(X)):
+                        W=[w,w+y,w+y*2]
+                        if i not in rr(i,j,k,l,y)+W and j not in rr(j,i,k,l,y)+W:
+                            if k not in rr(k,i,j,l,y)+W and l not in rr(l,k,i,j,y)+W and w not in rr(w,i,j,k,y)+[l,l+y,l+2*y]:
+                                if coladd(coladd(coladd(coladd(X[i],X[j]),X[k]),X[l]),X[w])==z:
+                                    return ['5',i,j,k,l,w]
+    for i in range(len(X)):
+        for j in range(len(X)):
+            for k in range(len(X)):
+                for l in range(len(X)):
+                    for w in range(len(X)):
+                        for t in range(len(X)):
+                            T=[t,t+y,t+y*2]
+                            if i not in rr(i,j,k,l,y)+W+T and j not in rr(j,i,k,l,y)+W+T:
+                                if k not in rr(k,i,j,l,y)+W+T and l not in rr(l,k,i,j,y)+W+T and w not in rr(w,i,j,k,y)+[l,l+y,l+2*y]+T:
+                                    if t not in rr(t,i,j,l,y)+W+[k,k+y,k+y*2]:
+                                        if coladd(coladd(coladd(coladd(coladd(X[i],X[j]),X[k]),X[l]),X[w]),X[t])==z:
+                                            return ['6',i,j,k,l,w,t]
+    return "greater than 6"
 
 
 X=[[0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], 
