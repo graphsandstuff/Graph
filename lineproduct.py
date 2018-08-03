@@ -3,6 +3,7 @@
 #diagonaldistance7
 
 def idx(n):
+    "Creates identity matrix of size n"
     x=[]
     for i in range(n):
         x.append([])
@@ -14,6 +15,7 @@ def idx(n):
     return x
 
 def matxadd(x,y):
+    "Adds matrices, binary"
     xy=idx(len(x))
     for i in range(len(x)):
         if type(x[i])!=list:
@@ -24,12 +26,14 @@ def matxadd(x,y):
     return xy
 
 def coladd(x,y):
+    "Adds column vectors, binary"
     xy=[]
     for i in range(len(x)):
         xy.append((x[i]+y[i])%2)
     return xy
 
 def zero(n):
+    "Creates zero vector of size n"
     lst=[]
     for i in range(n):
         lst.append(0)
@@ -60,35 +64,6 @@ def rr(x,y,k,l,n):
         z=l+(i+1)*n
         lst.append(z)
     return lst
-
-def dd(G):
-    y=len(G)
-    I=idx(y)
-    z=zero(y)
-    X=G+I+matxadd(G,I)
-    #test for 2
-    W=[]
-    for i in range(len(X)):
-        for j in range(len(X)):
-            if i not in r(i,j,y) and j not in r(j,i,y):
-                if coladd(X[i],X[j])==z:
-                    return ['2',i,j]
-    for i in range(len(X)):
-        for j in range(len(X)):
-            for k in range(len(X)):
-                if i not in r(i,j,y)+r(i,k,y) and j not in r(j,i,y)+r(j,k,y):
-                    if k not in r(k,i,y)+r(k,j,y):
-                        if coladd(coladd(X[i],X[j]),X[k])==z:
-                            return ['3',i,j,k]
-    for i in range(len(X)):
-        for j in range(len(X)):
-            for k in range(len(X)):
-                for l in range(len(X)):
-                    if i not in rr(i,j,k,l,y) and j not in rr(j,i,k,l,y):
-                        if k not in rr(k,i,j,l,y) and l not in rr(l,k,i,j,y):
-                            if coladd(coladd(coladd(X[i],X[j]),X[k]),X[l])==z:
-                                return ['4',i,j,k,l]
-    return "greater than 4"
 
 
 def rrr(x,y,k,l,n,j):
@@ -149,9 +124,23 @@ def ddd(G):
                             if k not in rrr(k,i,j,l,y,m) and l not in rrr(l,k,i,j,y,m) and m not in rrr(m,i,j,k,l,y):
                                 if coladd(coladd(coladd(coladd(X[i],X[j]),X[k]),X[l]),X[m])==z:
                                     return ['5',i,j,k,l,m]
-    return "greater than 5"
+    print("Not 5")
+    for i in range(len(X)):
+        for j in range(len(X)):
+            for k in range(len(X)):
+                for l in range(len(X)):
+                    for w in range(len(X)):
+                        for t in range(len(X)):
+                            T=[t,t+y,t+y*2]
+                            if i not in rr(i,j,k,l,y)+W+T and j not in rr(j,i,k,l,y)+W+T:
+                                if k not in rr(k,i,j,l,y)+W+T and l not in rr(l,k,i,j,y)+W+T and w not in rr(w,i,j,k,y)+[l,l+y,l+2*y]+T:
+                                    if t not in rr(t,i,j,l,y)+W+[k,k+y,k+y*2]:
+                                        if coladd(coladd(coladd(coladd(coladd(X[i],X[j]),X[k]),X[l]),X[w]),X[t])==z:
+                                            return ['6',i,j,k,l,w,t]
+    return "greater than 6"
 
 def prodL(G):
+    "Input adj matrix G, outputs GxL2, Cartesian graph product"
     I=idx(len(G))
     GI=G+I
     IG=I+G
@@ -163,6 +152,7 @@ def prodL(G):
     return X
 
 def mprod(G,n):
+    "Multiple Line Products"
     Y=G[:]
     while n>0:
         Y=prodL(Y)

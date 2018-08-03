@@ -1,6 +1,7 @@
 #diagonaldistance7
 
 def idx(n):
+    "Creates Identity matrix of size n"
     x=[]
     for i in range(n):
         x.append([])
@@ -12,6 +13,7 @@ def idx(n):
     return x
 
 def matxadd(x,y):
+    "Adds two matrices (must be same size) binary"
     xy=idx(len(x))
     for i in range(len(x)):
         if type(x[i])!=list:
@@ -22,12 +24,14 @@ def matxadd(x,y):
     return xy
 
 def coladd(x,y):
+    "Adds two column vectors of same size binary"
     xy=[]
     for i in range(len(x)):
         xy.append((x[i]+y[i])%2)
     return xy
 
 def zero(n):
+    "creates zero vector of size n"
     lst=[]
     for i in range(n):
         lst.append(0)
@@ -60,6 +64,7 @@ def rr(x,y,k,l,n):
     return lst
 
 def dd(G):
+    "Spits out diagonal distance, checks up to 6"
     y=len(G)
     I=idx(y)
     z=zero(y)
